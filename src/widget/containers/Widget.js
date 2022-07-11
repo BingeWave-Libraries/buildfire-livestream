@@ -16,44 +16,37 @@ const Widget = () => {
   
   useEffect(() => {
 
-    buildfire.localStorage.getItem(Constants.organizer_id, (error, value) => {
-      if (error) return console.error("something went wrong!", error);
-      if (value) {
-        setOrganizerID(value);
+    Promise.all([
+      buildfire.localStorage.getItem(Constants.organizer_id),
+      buildfire.localStorage.getItem(Constants.access_token),
+    ]).then(items => {
+      
+      let has_organizer_token = false;
 
-        if(access_token){
-          displayVideoPage();
-        }
-        
-      } else {
-        console.log("Nothing was previously saved");
+      let has_access_token = false;
+
+      if(items[0]){
+        setOrganizerID(items[0]);
+        has_organizer_token = true;
       }
+
+      if(items[1]){
+        setAccessToken(items[1]);
+        has_access_token = true;
+      }
+
+      if(has_access_token && has_access_token) {
+        displayVideoPage(items[0], items[1]);
+      } else {
+        setMainContent(<div>Organizer ID and access token required.</div>);
+      }
+
+
     });
 
+  }, []);
 
-    buildfire.localStorage.getItem(Constants.access_token, (error, value) => {
-      if (error) return console.error("something went wrong!", error);
-      if (value) {
-        setAccessToken(value);
-
-        if(organizer_id){
-          displayVideoPage();
-        }
-        
-      } else {
-        console.log("Nothing was previously saved");
-      }
-    });
-
-    if(organizer_id && access_token){
-
-    } else {
-      setMainContent(<div>Both the organizer and access token is required.</div>);
-    }
-
-  });
-
-  function displayVideoPage() {
+  function displayVideoPage(organizer_id, access_token) {
 
     Config.setAuthToken(access_token);
 

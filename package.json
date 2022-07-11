@@ -1,6 +1,6 @@
 {
   "name": "plugin-template-react",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "BuildFire plugin template for React",
   "main": "",
   "scripts": {
