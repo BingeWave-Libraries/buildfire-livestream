@@ -1,0 +1,23 @@
+{
+  "author":"Invirtu Labs, Inc",
+  "pluginName": "plugin-invirtu-livestream",
+  "pluginDescription": "Create Live Video Conferencing software",
+  "supportEmail":"support@invirtu.io",
+  "control": {
+    "content":{
+      "enabled":true
+    },
+    "design":{
+      "enabled":true
+    },
+    "settings":{
+      "enabled":true
+    }
+  },
+  "widget":{
+    "enabled": true
+  },
+  "features" : [],
+  "webpack": "8080",
+  "languages" : ["en"]
+}
