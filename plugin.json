@@ -14,7 +14,9 @@
       "enabled":true
     }
   },
-  "widget":{},
+  "widget":{
+    "enabled": true
+  },
   "features" : [],
   "webpack": "8080",
   "languages" : ["en"]

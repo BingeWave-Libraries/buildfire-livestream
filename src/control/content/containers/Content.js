@@ -41,6 +41,20 @@ const Content = () => {
       console.log("All is well, data saved and other plugins can now access it");
     });
 
+    let saveObject = {};
+    saveObject[Constants.organizer_id] = organizer_id;
+    saveObject[Constants.access_token] = access_token;
+
+    buildfire.datastore.save(
+      saveObject,
+      Constants.settings,
+      (err, result) => {
+        if (err) return console.error("Error while saving your data", err);
+    
+        console.log("Data saved successfully", result);
+      }
+    );
+
   }
   
   return (

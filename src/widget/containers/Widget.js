@@ -26,6 +26,7 @@ const Widget = () => {
     });
 
     setTimeout(function () {
+      /*
       Promise.all([
         buildfire.localStorage.getItem(Constants.organizer_id),
         buildfire.localStorage.getItem(Constants.access_token),
@@ -52,11 +53,35 @@ const Widget = () => {
           displayVideoPage(items[0], items[1]);
         } else {
           setMainContent(<div>Organizer ID and access token required.</div>);
-        }
+        }*/
 
 
-      });
     }, 100);
+
+    buildfire.datastore.get(Constants.settings, (err, result) => {
+      if (err) return console.error("Error while retrieving your data", err);
+      console.log("Main record", result.data);
+
+      let has_organizer_token = false;
+
+      let has_access_token = false;
+
+      if (result.data[Constants.organizer_id]) {
+        setOrganizerID(result.data[Constants.organizer_id]);
+        has_organizer_token = true;
+      }
+
+      if (result.data[Constants.access_token]) {
+        setAccessToken(result.data[Constants.access_token]);
+        has_access_token = true;
+      }
+
+      if (has_access_token && has_access_token) {
+        displayVideoPage(result.data[Constants.organizer_id], result.data[Constants.access_token]);
+      } else {
+        setMainContent(<div>Organizer ID and access token required.</div>);
+      }
+    });
 
   }, []);
 
